@@ -12,5 +12,8 @@ test-db-setup:
 rebuild:
 	RAILS_ENV=test bundle exec rails db:migrate:reset
 
+lint:
+	bundle exec rubocop -A
+
 test:
 	RAILS_ENV=test bundle exec rspec

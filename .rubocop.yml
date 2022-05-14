@@ -1,0 +1,51 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-performance
+
+# @see https://github.com/rubocop/rubocop/blob/master/config/default.yml
+AllCops:
+  NewCops: enable
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  StyleGuideBaseURL: https://github.com/fortissimo1997/ruby-style-guide/blob/japanese/README.ja.md
+  ExtraDetails: true
+  RubyInterpreters:
+    - ruby
+    - rake
+  TargetRubyVersion: 3.1
+  TargetRailsVersion: 7.0
+  Exclude:
+    - 'tmp/**/*'
+    - 'vendor/**/*'
+    - '.git/**/*'
+    - 'bin/*'
+    - 'db/**/*'
+    - 'spec/rails_helper.rb'
+
+Rails:
+  Enabled: true
+
+# @see https://docs.rubocop.org/rubocop/cops_style.html
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Style/Documentation:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+# @see https://docs.rubocop.org/rubocop-rspec/cops_rspec.html
+RSpec/ContextWording:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Enabled: false
+RSpec/ExampleLength:
+  Enabled: false
+
+# @see https://docs.rubocop.org/rubocop/cops_metrics.html
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
