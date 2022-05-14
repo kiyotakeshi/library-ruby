@@ -11,7 +11,7 @@ $ cd library
 - model, controller
 
 ```shell
-$ rails g model User name:string age:integer hobby:string
+$ bundle exec rails g model User name:string age:integer hobby:string
 $ bundle exec rails db:migrate --trace
 $ bundle exec rails db:seed --trace
 
@@ -20,3 +20,9 @@ irb(main):001:0> User.all
 
 $ bundle exec rails g controller Users
 ```
+
+- setup factory_bot
+
+- setup robocup
+
+- setup model
