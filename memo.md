@@ -21,8 +21,6 @@ irb(main):001:0> User.all
 $ bundle exec rails g controller Users
 ```
 
-- setup factory_bot
-
 - setup robocup
 
 - setup model

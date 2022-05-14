@@ -5,6 +5,7 @@ describe 'User' do
 
   it 'succeeds' do
     id = expected.id
+    # p ENV['LOG_LEVEL']
     p id
   end
 end
