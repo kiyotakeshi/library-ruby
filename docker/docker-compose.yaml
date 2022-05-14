@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  mysql:
+    image: mysql/mysql-server:8.0.28
+    container_name: mysql-library
+    environment:
+      # https://dev.mysql.com/doc/refman/8.0/en/docker-mysql-more-topics.html#docker_var_mysql-root-host
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: 1qazxsw2
+      MYSQL_DATABASE: library_development
+      TZ: "Asia/Tokyo"
+    volumes:
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./init:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"

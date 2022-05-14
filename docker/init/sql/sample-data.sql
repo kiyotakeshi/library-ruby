@@ -1,0 +1,9 @@
+-- SET NAMES utf8mb4;
+--
+-- USE library_development;
+--
+-- SET AUTOCOMMIT=0;
+-- INSERT INTO actor VALUES (1,'PENELOPE','GUINESS','2006-02-15 04:34:33'),
+--                          (2,'NICK','WAHLBERG','2006-02-15 04:34:33'),
+--                          (3,'ED','CHASE','2006-02-15 04:34:33');
+-- COMMIT;
