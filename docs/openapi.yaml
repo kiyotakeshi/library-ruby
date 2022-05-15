@@ -1,0 +1,447 @@
+openapi: 3.0.3
+info:
+  version: '0.1.0'
+  title: 'Library API'
+  description: 'Library API'
+servers:
+  - url: https://localhost:3001/
+paths:
+  /users:
+    get:
+      tags:
+        - 'users'
+      summary: 'ユーザ一覧の取得'
+      description: 'ユーザ一覧を返す'
+      responses:
+        '200':
+          description: '正常'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                required:
+                  - users
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/user'
+    # post:
+  /users/{userId}:
+    get:
+      tags:
+        - 'users'
+      summary: 'ユーザの取得'
+      description: 'マッチするユーザ1件を返す'
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: '正常'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                required:
+                  - users
+                properties:
+                  users:
+                    type: object
+                    $ref: '#/components/schemas/user'
+    # put:
+    # delete:
+  /users/{userId}/reviews:
+    get:
+      tags:
+        - 'users'
+      summary: 'あるユーザのレビュー一覧取得'
+      description: 'あるユーザのレビュー一覧取得を返す'
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: '正常'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                required:
+                  - reviews
+                properties:
+                  reviews:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/review'
+  /users/{userId}/rental_histories:
+    get:
+      tags:
+        - 'users'
+      summary: 'あるユーザのレンタル履歴'
+      description: 'あるユーザのレンタル履歴を返す'
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: '正常'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                required:
+                  - rental_histories
+                properties:
+                  rental_histories:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/rental_history'
+
+  /books:
+    get:
+      tags:
+        - 'books'
+      summary: '本の一覧の取得'
+      description: '本の一覧を返す'
+      responses:
+        '200':
+          description: '正常'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                required:
+                  - books
+                properties:
+                  books:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/book'
+    # post:
+  /books/{bookId}:
+    get:
+      tags:
+        - 'books'
+      summary: '本の一覧の取得'
+      description: '本の一覧を返す'
+      parameters:
+        - in: path
+          name: bookId
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: '正常'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                required:
+                  - books
+                properties:
+                  books:
+                    type: object
+                    $ref: '#/components/schemas/book'
+    # put:
+    # delete:
+  /books/{bookId}/reviews:
+    get:
+      tags:
+        - 'books'
+      summary: 'ある本につけられたレビュー一覧の取得'
+      description: 'ある本につけられたレビュー一覧の取得を返す'
+      parameters:
+        - in: path
+          name: bookId
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: '正常'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                required:
+                  - reviews
+                properties:
+                  reviews:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/category'
+
+  /categories:
+    get:
+      tags:
+        - 'categories'
+      summary: 'カテゴリーの一覧の取得'
+      description: 'カテゴリーの一覧を返す'
+      responses:
+        '200':
+          description: '正常'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                required:
+                  - categories
+                properties:
+                  categories:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/category'
+    # post:
+  # /categories/{categoryId}/:
+    # delete:
+  /categories/{categoryId}/books:
+    get:
+      tags:
+        - 'categories'
+      summary: 'あるカテゴリーの本の一覧の取得'
+      description: 'あるカテゴリーの本の一覧を返す'
+      parameters:
+        - in: path
+          name: categoryId
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: '正常'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                required:
+                  - books
+                properties:
+                  books:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/book'
+
+  /reviews/{reviewId}/comments:
+    get:
+      tags:
+        - 'reviews'
+      summary: 'あるレビューに寄せられたコメントの一覧の取得'
+      description: 'あるレビューに寄せられたコメントの一覧の取得を返す'
+      parameters:
+        - in: path
+          name: reviewId
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: '正常'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                required:
+                  - comments
+                properties:
+                  comments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/comment'
+
+  # /comments/{commentId}:
+    # put:
+    # patch:
+
+components:
+  schemas:
+    user:
+      type: object
+      required:
+        - id
+        - name
+        - email
+        - role_type
+        - joining_date
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: 'mike'
+        email:
+          type: string
+          example: 'mike@example.com'
+        role_type:
+          $ref: '#/components/schemas/role_type'
+        joining_date:
+          type: string
+          example: '2022-05-15'
+
+    book:
+      type: object
+      required:
+        - id
+        - title
+        - description
+        - published
+        - is_rent
+        - return_date
+        - categories
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: 'java professional'
+        description:
+          type: string
+          example: 'this book for the programer that want to be java programmer'
+        published:
+          type: string
+          example: '2022-04-31'
+        is_rent:
+          type: boolean
+          description: '借りられているか'
+          example: true
+        return_date:
+          type: string
+          description: '返却予定日'
+          example: '2022-05-20'
+          nullable: true
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/category'
+
+    category:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: 'java'
+
+    review:
+      type: object
+      required:
+        - id
+        - title
+        - description
+        - rating
+        - date
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: 'java'
+        description:
+          type: string
+          example: |
+            this book gives me beneficial information. Especially what and how to use OOP
+        rating:
+          type: integer
+          example: 4
+          minimum: 1
+          maximum: 5
+        date:
+          type: string
+          example: '2022-04-15'
+
+    comment:
+      type: object
+      required:
+        - id
+        - title
+        - content
+        - favorite_count
+        - date
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: 'java'
+        content:
+          type: string
+          example: |
+            I'm just looking for OOP learning book. I'll rent next!
+        favorite_count:
+          type: integer
+          description: |
+            いいね数
+            誰がいいねしたか、1人1回までなどを制御する場合は別テーブルに切り出す
+          example: 3
+        date:
+          type: string
+          description: |
+            コメントを記載した日
+            コメントを更新した場合は日付も更新される
+          example: '2022-04-17'
+        is_edited:
+          type: boolean
+          description: '内容が更新されたか'
+          example: false
+          default: false
+
+    rental_history:
+      type: object
+      required:
+        - id
+        - user_id
+        - book_id
+        - start_date
+        - return_date
+        - book_title
+      properties:
+        id:
+          type: integer
+          example: 1
+        user_id:
+          type: integer
+          example: 1
+        book_id:
+          type: integer
+          example: 1
+        start_date:
+          type: string
+          example: '2022-04-16'
+        return_date:
+          type: string
+          example: '2022-04-30'
+        book_title:
+          type: string
+          example: 'java professional'
+
+    role_type:
+      type: string
+      enum:
+        - 'admin'
+        - 'user'
