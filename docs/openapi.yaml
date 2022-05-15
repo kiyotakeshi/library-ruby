@@ -303,7 +303,7 @@ components:
         - title
         - description
         - published
-        - is_rent
+        - rent
         - return_date
         - categories
       properties:
@@ -319,7 +319,7 @@ components:
         published:
           type: string
           example: '2022-04-31'
-        is_rent:
+        rent:
           type: boolean
           description: '借りられているか'
           example: true
@@ -382,6 +382,7 @@ components:
         - content
         - favorite_count
         - date
+        - edited
       properties:
         id:
           type: integer
@@ -405,7 +406,7 @@ components:
             コメントを記載した日
             コメントを更新した場合は日付も更新される
           example: '2022-04-17'
-        is_edited:
+        edited:
           type: boolean
           description: '内容が更新されたか'
           example: false
