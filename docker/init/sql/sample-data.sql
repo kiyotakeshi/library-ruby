@@ -1,3 +1,6 @@
+-- ActiveRecord の seed を使うかな
+-- $ bundle exec rails db:seed --trace
+
 -- SET NAMES utf8mb4;
 --
 -- USE library_development;

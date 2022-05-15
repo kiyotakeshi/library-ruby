@@ -1,3 +1,6 @@
+-- ActiveRecord の migration を使うかな
+-- bundle exec rails db:migrate --trace
+
 -- CREATE TABLE actor (
 --                        actor_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
 --                        first_name VARCHAR(45) NOT NULL,
