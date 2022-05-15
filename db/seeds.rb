@@ -9,3 +9,5 @@
 # users.each do |name, age, hobby|
 #   User.create(name:, age:, hobby:)
 # end
+
+10.times { Book.create!(title: Faker::Lorem.word) }

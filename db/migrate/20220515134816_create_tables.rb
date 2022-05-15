@@ -31,6 +31,8 @@ class CreateTables < ActiveRecord::Migration[7.0]
 
     ## book
     # bundle exec rails g migration CreateBooks title description published:date rent:boolean return_date:date
+    # bundle exec rails g model Books title description published:date rent:boolean return_date:date
+    # bundle exec rails g controller Books
     create_table :books do |t|
       t.string :title
       t.string :description
@@ -43,6 +45,8 @@ class CreateTables < ActiveRecord::Migration[7.0]
 
     ## category
     # bundle exec rails g migration CreateCategories name
+    # bundle exec rails g model Categories name
+    # bundle exec rails g controller Categories
     create_table :categories do |t|
       t.string :name
 
