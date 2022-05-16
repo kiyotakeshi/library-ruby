@@ -10,4 +10,12 @@
 #   User.create(name:, age:, hobby:)
 # end
 
-10.times { Book.create!(title: Faker::Lorem.word) }
+# 10.times { Review.create!(title: Faker::Lorem.word) }
+#
+# 10.times do
+#   review = Review.all.sample,
+#   Book.create!(
+#     title: Faker::Lorem.word,
+#     review: review,
+#   )
+# end

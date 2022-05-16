@@ -2,4 +2,5 @@
 
 Rails.application.routes.draw do
   resources :books, only: :index
+  resources :categories, only: :index
 end

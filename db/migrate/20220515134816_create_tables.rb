@@ -20,6 +20,7 @@ class CreateTables < ActiveRecord::Migration[7.0]
 
     ## review
     # bundle exec rails g migration CreateReviews title description rating:integer date:date
+    # bundle exec rails g model Reviews title description rating:integer date:date
     create_table :reviews do |t|
       t.string :title
       t.string :description
