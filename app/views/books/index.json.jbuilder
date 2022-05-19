@@ -1,18 +1,16 @@
-json.array! @books do |book|
+json.books @books do |book|
   json.id book.id
   json.title book.title
   json.description book.description
   json.published book.published
   json.rent book.rent
   json.return_date book.return_date
-
-  # TODO: relation の描画をしたい
-  json.reviews book.reviews do |review|
-    #   json.partial! "reviews/review", review: book.reviews
-    review.id
-    review.title
-    review.description
-    review.rating
-    review.date
-  end
+  # json.reviews book.reviews.to_a do |review|
+  #   json.id review.id
+  #   json.title review.title
+  #   json.description review.description
+  #   json.rating review.rating
+  #   json.date review.date
+  #   json.user_id review.user_id
+  # end
 end
