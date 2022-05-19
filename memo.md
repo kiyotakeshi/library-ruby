@@ -1,7 +1,7 @@
 - setup 
 
 ```shell
-$ rbenv local 3.1.1
+$ rbenv local 3.1.2
 
 $ ruby --version
 
