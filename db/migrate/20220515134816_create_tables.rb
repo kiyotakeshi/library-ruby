@@ -11,6 +11,7 @@ class CreateTables < ActiveRecord::Migration[7.0]
     # bundle exec rails g migration CreateUsers email password role_type joining_date:date
     create_table :users do |t|
       t.string :email
+      t.string :name
       t.string :password
       t.string :role_type
       t.date :joining_date

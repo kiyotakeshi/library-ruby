@@ -2,29 +2,32 @@
 -- $ bundle exec rails db:seed --trace
 
 -- SET NAMES utf8mb4;
---
--- USE library_development;
 
 /*
+USE library_development;
+
 -- user
-INSERT INTO library_development.users (email, password, role_type, joining_date, created_at, updated_at)
-VALUES ('test@example.com', '1qazxsw2', 'admin', '2022-05-16', '2022-05-16 09:32:28.000000',
-        '2022-05-16 09:32:30.000000');
+INSERT INTO users (email, name, password, role_type, joining_date, created_at, updated_at) VALUES
+('test@example.com', 'test', '1qazxsw2', 'admin', '2022-05-16', '2022-05-16 09:32:28.000000','2022-05-16 09:32:30.000000'),
+('test2@example.com', 'test2', '2wsxzaq1', 'user', '2022-05-20', '2022-05-16 09:32:28.000000','2022-05-16 09:32:30.000000');
 
 select u.id, u.email
 from users u;
 
 -- book
-INSERT INTO library_development.books
-(title, description, published, rent, return_date, created_at, updated_at)
-VALUES ('test', 'test', '2022-05-16', 1, null, '2022-05-16 09:30:11.000000', '2022-05-16 09:30:14.000000');
+INSERT INTO books
+(title, description, published, rent, return_date, created_at, updated_at) VALUES
+('java beginner', 'for java beginner', '2022-05-16', 1, null, '2022-05-16 09:30:11.000000', '2022-05-16 09:30:14.000000'),
+('ruby beginner', 'for ruby beginner', '2022-05-20', 1, null, '2022-05-16 09:30:11.000000', '2022-05-16 09:30:14.000000');
 
 select b.id, b.title
 from books b;
 
 -- review
-INSERT INTO library_development.reviews (title, description, rating, date, created_at, updated_at, user_id, book_id)
-VALUES ('test', 'test', 2, '2022-05-16', '2022-05-16 09:31:44.000000', '2022-05-16 09:31:51.000000', 1, 1);
+INSERT INTO reviews (title, description, rating, date, created_at, updated_at, user_id, book_id) VALUES
+('good', 'good for me', 4, '2022-05-16', '2022-05-16 09:31:44.000000', '2022-05-16 09:31:51.000000', 1, 1),
+('excellent', 'excellent for me', 5, '2022-05-20', '2022-05-16 09:31:44.000000', '2022-05-16 09:31:51.000000', 1, 2),
+('so so', 'so so for me', 2, '2022-05-20', '2022-05-16 09:31:44.000000', '2022-05-16 09:31:51.000000', 2, 1);
 
 select r.id, r.title from reviews r;
 
@@ -33,4 +36,11 @@ from books b
          join reviews r on b.id = r.book_id
          join users u on r.user_id = u.id
 where b.id = 1;
-*/
+
+-- category
+INSERT INTO categories (name, created_at, updated_at) VALUES
+('java', '2022-05-20 07:58:12.000000', '2022-05-20 07:58:13.000000'),
+('kotlin', '2022-05-20 07:59:48.000000', '2022-05-20 07:59:50.000000');
+
+select c.name from categories c;
+-- */
