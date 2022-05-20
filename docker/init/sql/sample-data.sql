@@ -40,7 +40,26 @@ where b.id = 1;
 -- category
 INSERT INTO categories (name, created_at, updated_at) VALUES
 ('java', '2022-05-20 07:58:12.000000', '2022-05-20 07:58:13.000000'),
-('kotlin', '2022-05-20 07:59:48.000000', '2022-05-20 07:59:50.000000');
+('kotlin', '2022-05-20 07:59:48.000000', '2022-05-20 07:59:50.000000'),
+('jvm', '2022-05-20 07:59:48.000000', '2022-05-20 07:59:50.000000'),
+('server-side', '2022-05-20 07:59:48.000000', '2022-05-20 07:59:50.000000');
 
 select c.name from categories c;
+
+--- books_categories
+INSERT INTO books_categories (book_id, category_id, created_at, updated_at) VALUES
+(1, 1, '2022-05-20 23:08:01.000000', '2022-05-20 23:08:02.000000'),
+(1, 2, '2022-05-20 23:08:01.000000', '2022-05-20 23:08:02.000000'),
+(1, 4, '2022-05-20 23:08:01.000000', '2022-05-20 23:08:02.000000');
+
+select b.title, c.id, c.name from books b
+join books_categories bc on b.id = bc.book_id
+join categories c on bc.category_id = c.id
+order by c.id;
+
+select bc.book_id, c.id, c.name
+from categories c
+         inner join books_categories bc on c.id = bc.category_id
+where bc.book_id = 1
+order by c.id;
 -- */

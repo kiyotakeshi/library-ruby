@@ -1,3 +1,4 @@
+# json.books @books
 json.books @books do |book|
   json.id book.id
   json.title book.title
@@ -13,4 +14,8 @@ json.books @books do |book|
   #   json.date review.date
   #   json.user_id review.user_id
   # end
+  json.categories book.categories.to_a do |category|
+    json.id category.id
+    json.name category.name
+  end
 end
