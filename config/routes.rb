@@ -10,4 +10,6 @@ Rails.application.routes.draw do
 
   resources :categories, only: :index
   get "/categories/:id/books", to: "categories#show_books"
+
+  get "/reviews/:id/comments", to: "reviews#show_comments"
 end
