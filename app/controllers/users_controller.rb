@@ -11,4 +11,9 @@ class UsersController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     raise Errors::NotFoundError
   end
+
+  def show_reviews
+    permitted = params.permit(:id)
+    @user_reviews = User.find(permitted[:id]).reviews
+  end
 end

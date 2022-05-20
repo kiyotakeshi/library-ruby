@@ -37,6 +37,11 @@ from books b
          join users u on r.user_id = u.id
 where b.id = 1;
 
+select r.id, r.title, u.name as user_name from reviews r
+join users u on r.user_id = u.id
+where u.id = 1
+order by r.id;
+
 -- category
 INSERT INTO categories (name, created_at, updated_at) VALUES
 ('java', '2022-05-20 07:58:12.000000', '2022-05-20 07:58:13.000000'),

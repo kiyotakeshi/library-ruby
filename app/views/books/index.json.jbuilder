@@ -6,14 +6,6 @@ json.books @books do |book|
   json.published book.published
   json.rent book.rent
   json.return_date book.return_date
-  # json.reviews book.reviews.to_a do |review|
-  #   json.id review.id
-  #   json.title review.title
-  #   json.description review.description
-  #   json.rating review.rating
-  #   json.date review.date
-  #   json.user_id review.user_id
-  # end
   json.categories book.categories.to_a do |category|
     json.id category.id
     json.name category.name
