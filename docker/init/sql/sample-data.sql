@@ -67,4 +67,13 @@ from categories c
          inner join books_categories bc on c.id = bc.category_id
 where bc.book_id = 1
 order by c.id;
+
+--- rental history
+INSERT INTO rental_histories (start_date, return_date, created_at, updated_at, user_id, book_id) VALUES
+('2022-05-20', '2022-05-27', '2022-05-20 23:48:31.000000', '2022-05-20 23:48:32.000000', 1, 1),
+('2022-05-29', '2022-05-31', '2022-05-20 23:48:31.000000', '2022-05-20 23:48:32.000000', 1, 2);
+
+select u.name, u.email, rh.start_date, rh.return_date from users u
+join rental_histories rh on u.id = rh.user_id
+where u.id = 1;
 -- */

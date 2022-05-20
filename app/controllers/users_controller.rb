@@ -16,4 +16,9 @@ class UsersController < ApplicationController
     permitted = params.permit(:id)
     @user_reviews = User.find(permitted[:id]).reviews
   end
+
+  def show_rental_histories
+    permitted = params.permit(:id)
+    @user_rental_histories = User.find(permitted[:id]).rental_histories
+  end
 end
