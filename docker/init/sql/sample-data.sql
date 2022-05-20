@@ -24,7 +24,7 @@ select b.id, b.title
 from books b;
 
 -- review
-INSERT INTO reviews (title, description, rating, date, created_at, updated_at, user_id, book_id) VALUES
+INSERT INTO reviews (title, content, rating, date, created_at, updated_at, user_id, book_id) VALUES
 ('good', 'good for me', 4, '2022-05-16', '2022-05-16 09:31:44.000000', '2022-05-16 09:31:51.000000', 1, 1),
 ('excellent', 'excellent for me', 5, '2022-05-20', '2022-05-16 09:31:44.000000', '2022-05-16 09:31:51.000000', 1, 2),
 ('so so', 'so so for me', 2, '2022-05-20', '2022-05-16 09:31:44.000000', '2022-05-16 09:31:51.000000', 2, 1);

@@ -24,7 +24,7 @@ class CreateTables < ActiveRecord::Migration[7.0]
     # bundle exec rails g model Reviews title description rating:integer date:date
     create_table :reviews do |t|
       t.string :title
-      t.string :description
+      t.string :content
       t.integer :rating
       t.date :date
 

@@ -63,7 +63,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_15_141037) do
 
   create_table "reviews", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title"
-    t.string "description"
+    t.string "content"
     t.integer "rating"
     t.date "date"
     t.datetime "created_at", null: false

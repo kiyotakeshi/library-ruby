@@ -9,4 +9,9 @@ class BooksController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     raise Errors::NotFoundError
   end
+
+  def show_reviews
+    permitted = params.permit(:id)
+    @book_reviews = Book.find(permitted[:id]).reviews
+  end
 end

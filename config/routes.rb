@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   get "/users/:id/rental_histories", to: "users#show_rental_histories"
 
   resources :books, only: %i[index show]
+  get "/books/:id/reviews", to: "books#show_reviews"
   resources :categories, only: :index
 end

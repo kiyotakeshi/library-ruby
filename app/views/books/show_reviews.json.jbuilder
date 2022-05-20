@@ -1,4 +1,4 @@
-json.reviews @user_reviews do |review|
+json.reviews @book_reviews do |review|
   json.id review.id
   json.title review.title
   json.content review.content

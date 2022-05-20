@@ -185,7 +185,7 @@ paths:
                   reviews:
                     type: array
                     items:
-                      $ref: '#/components/schemas/category'
+                      $ref: '#/components/schemas/review'
 
   /categories:
     get:
@@ -351,7 +351,7 @@ components:
       required:
         - id
         - title
-        - description
+        - content
         - rating
         - date
       properties:
@@ -361,7 +361,7 @@ components:
         title:
           type: string
           example: 'java'
-        description:
+        content:
           type: string
           example: |
             this book gives me beneficial information. Especially what and how to use OOP
