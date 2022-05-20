@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   get "/users/:id/reviews", to: "users#show_reviews"
   get "/users/:id/rental_histories", to: "users#show_rental_histories"
 
-  resources :books, only: :index
+  resources :books, only: %i[index show]
   resources :categories, only: :index
 end
