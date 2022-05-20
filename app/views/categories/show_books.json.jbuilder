@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-json.books @books do |book|
+json.books @category_books do |book|
   json.id book.id
   json.title book.title
   json.description book.description
@@ -12,3 +12,4 @@ json.books @books do |book|
     json.name category.name
   end
 end
+

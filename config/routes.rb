@@ -7,5 +7,7 @@ Rails.application.routes.draw do
 
   resources :books, only: %i[index show]
   get "/books/:id/reviews", to: "books#show_reviews"
+
   resources :categories, only: :index
+  get "/categories/:id/books", to: "categories#show_books"
 end

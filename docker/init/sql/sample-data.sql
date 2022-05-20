@@ -54,7 +54,7 @@ select c.name from categories c;
 --- books_categories
 INSERT INTO books_categories (book_id, category_id, created_at, updated_at) VALUES
 (1, 1, '2022-05-20 23:08:01.000000', '2022-05-20 23:08:02.000000'),
-(1, 2, '2022-05-20 23:08:01.000000', '2022-05-20 23:08:02.000000'),
+(1, 3, '2022-05-20 23:08:01.000000', '2022-05-20 23:08:02.000000'),
 (1, 4, '2022-05-20 23:08:01.000000', '2022-05-20 23:08:02.000000');
 
 select b.title, c.id, c.name from books b
