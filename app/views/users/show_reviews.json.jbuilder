@@ -4,6 +4,5 @@ json.reviews @user_reviews do |review|
   json.content review.content
   json.rating review.rating
   json.date review.date
-  json.user_id review.user_id
 end
 

@@ -5,22 +5,91 @@ require "rails_helper"
 RSpec.describe "Users", type: :request do
 
   describe "GET /users" do
-    let!(:expected) { create_list(:user, 3) }
+    let(:expected) { create_list(:user, 3) }
 
-    it "return users data" do
+    it "return users" do
       get "/users", as: :json
       expect(response).to have_http_status(:ok)
       users = JSON.parse(response.body)["users"]
 
       expect(users.size).to eq(3)
 
-      first_user = users.first
+      user = users.first
       # https://relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
-      expect(first_user.key?("id")).to be true
-      expect(first_user.key?("name")).to be true
-      expect(first_user.key?("email")).to be true
-      expect(first_user.key?("role_type")).to be true
-      expect(first_user.key?("joining_date")).to be true
+      expect(user.key?("id")).to be true
+      expect(user.key?("name")).to be true
+      expect(user.key?("email")).to be true
+      expect(user.key?("role_type")).to be true
+      expect(user.key?("joining_date")).to be true
+    end
+  end
+
+  describe "GET /users/:id" do
+    let(:expected) { create(:user) }
+    let(:id) { expected.id }
+
+    it "return user" do
+      get "/users/#{id}", as: :json
+
+      expect(response).to have_http_status(:ok)
+      user = JSON.parse(response.body)["users"]
+
+      expect(user.key?("id")).to be true
+      expect(user.key?("name")).to be true
+      expect(user.key?("email")).to be true
+      expect(user.key?("role_type")).to be true
+      expect(user.key?("joining_date")).to be true
+    end
+  end
+
+  describe "GET /users/:id/reviews" do
+    let(:user) { create(:user) }
+    let(:expected) { create_list(:review, 3, user:) }
+
+    it "return user reviews" do
+      get "/users/#{expected.first.user_id}/reviews", as: :json
+
+      expect(response).to have_http_status(:ok)
+      reviews = JSON.parse(response.body)["reviews"]
+
+      expect(reviews.size).to eq(3)
+
+      review = reviews.first
+      expect(review.key?("id")).to be true
+      expect(review.key?("title")).to be true
+      expect(review.key?("content")).to be true
+      expect(review.key?("rating")).to be true
+      expect(review.key?("date")).to be true
+    end
+  end
+
+  describe "GET /users/:id/rental_histories" do
+    let(:user) { create(:user) }
+    let(:book1) { create(:book, title: "ruby beginner") }
+    let(:book2) { create(:book, title: "ruby professional") }
+
+    it "return user rental histories" do
+      create(:rental_history, user:, book: book1)
+      create(:rental_history, user:, book: book2)
+
+      get "/users/#{user.id}/rental_histories", as: :json
+
+      expect(response).to have_http_status(:ok)
+      rental_histories = JSON.parse(response.body)["rental_histories"]
+
+      expect(rental_histories.size).to eq(2)
+
+      first_rental_history = rental_histories.first
+      expect(first_rental_history.key?("id")).to be true
+      expect(first_rental_history.key?("user_id")).to be true
+      expect(first_rental_history.key?("book_id")).to be true
+      expect(first_rental_history.key?("start_date")).to be true
+      expect(first_rental_history.key?("return_date")).to be true
+      expect(first_rental_history.key?("book_title")).to be true
+      expect(first_rental_history["book_title"]).to eq("ruby beginner")
+
+      second_rental_history = rental_histories.second
+      expect(second_rental_history["book_title"]).to eq("ruby professional")
     end
   end
 end
