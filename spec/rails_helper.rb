@@ -68,5 +68,17 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 
   # SQL の実行ログを表示する場合
-  # ActiveRecord::Base.logger = Logger.new(STDOUT)
+  ActiveRecord::Base.logger = Logger.new(STDOUT)
+
+  # @see https://github.com/DatabaseCleaner/database_cleaner#rspec-example
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
+  end
 end
