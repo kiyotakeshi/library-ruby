@@ -8,7 +8,7 @@ class CreateTables < ActiveRecord::Migration[7.0]
     # bundle exec rails g controller Users
 
     ## user
-    # bundle exec rails g migration CreateUsers email password role_type joining_date:date
+    # bundle exec rails g migration CreateUsers email name password role_type joining_date:date
     create_table :users do |t|
       t.string :email
       t.string :name
@@ -20,8 +20,8 @@ class CreateTables < ActiveRecord::Migration[7.0]
     end
 
     ## review
-    # bundle exec rails g migration CreateReviews title description rating:integer date:date
-    # bundle exec rails g model Reviews title description rating:integer date:date
+    # bundle exec rails g migration CreateReviews title content rating:integer date:date
+    # bundle exec rails g model Reviews title content rating:integer date:date
     create_table :reviews do |t|
       t.string :title
       t.string :content

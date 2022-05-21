@@ -1,4 +1,5 @@
--- ActiveRecord の seed を使うかな
+-- ActiveRecord の seed を使う
+-- @see db/seeds.rb
 -- $ bundle exec rails db:seed --trace
 
 -- SET NAMES utf8mb4;
@@ -17,8 +18,8 @@ from users u;
 -- book
 INSERT INTO books
 (title, description, published, rent, return_date, created_at, updated_at) VALUES
-('java beginner', 'for java beginner', '2022-05-16', 1, null, '2022-05-16 09:30:11.000000', '2022-05-16 09:30:14.000000'),
-('ruby beginner', 'for ruby beginner', '2022-05-20', 1, null, '2022-05-16 09:30:11.000000', '2022-05-16 09:30:14.000000');
+('java beginner', 'for java beginner', '2022-05-16', 0, null, '2022-05-16 09:30:11.000000', '2022-05-16 09:30:14.000000'),
+('ruby beginner', 'for ruby beginner', '2022-05-20', 0, null, '2022-05-16 09:30:11.000000', '2022-05-16 09:30:14.000000');
 
 select b.id, b.title
 from books b;
