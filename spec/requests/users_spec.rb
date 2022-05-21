@@ -5,9 +5,10 @@ require "rails_helper"
 RSpec.describe "Users", type: :request do
 
   describe "GET /users" do
-    let(:expected) { create_list(:user, 3) }
 
     it "return users" do
+      create_list(:user, 3)
+
       get "/users", as: :json
       expect(response).to have_http_status(:ok)
       users = JSON.parse(response.body)["users"]
@@ -25,11 +26,10 @@ RSpec.describe "Users", type: :request do
   end
 
   describe "GET /users/:id" do
-    let(:expected) { create(:user) }
-    let(:id) { expected.id }
+    let(:user) { create(:user) }
 
     it "return user" do
-      get "/users/#{id}", as: :json
+      get "/users/#{user.id}", as: :json
 
       expect(response).to have_http_status(:ok)
       user = JSON.parse(response.body)["users"]
@@ -44,10 +44,11 @@ RSpec.describe "Users", type: :request do
 
   describe "GET /users/:id/reviews" do
     let(:user) { create(:user) }
-    let(:expected) { create_list(:review, 3, user:) }
 
     it "return user reviews" do
-      get "/users/#{expected.first.user_id}/reviews", as: :json
+      create_list(:review, 3, user:)
+
+      get "/users/#{user.id}/reviews", as: :json
 
       expect(response).to have_http_status(:ok)
       reviews = JSON.parse(response.body)["reviews"]
