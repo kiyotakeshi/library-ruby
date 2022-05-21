@@ -378,6 +378,8 @@ components:
       type: object
       required:
         - id
+        - user_name
+        - review_id
         - title
         - content
         - favorite_count
@@ -385,6 +387,12 @@ components:
         - edited
       properties:
         id:
+          type: integer
+          example: 1
+        user_name:
+          type: string
+          example: 'mike'
+        review_id:
           type: integer
           example: 1
         title:
