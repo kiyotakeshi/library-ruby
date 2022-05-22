@@ -13,17 +13,24 @@ class UsersController < ApplicationController
   end
 
   def create
-    json = params.to_json
+    permitted_params = params.require(:user).permit(:name, :email, :role_type, :joining_date)
     # form = Form::Users::Create::UserForm.new(doc.data)
 
-    user = User.new(email: 'mike@example.com', name: 'mike', password: '1qazxsw2', role_type: 'admin', joining_date: '2022-05-16')
+    @user = User.new(permitted_params)
 
-    if user.save
-      render json: user, status: :created
+    # if form.invalid?
+    #   return render json: json_string, status: :unprocessable_entity
+    # end
+    #
+    # render template: "users/create", status: :created
+
+    if @user.save
+      render template: "users/create", status: :created
     else
-      render json: user.errors, status: :unprocessable_entity
+      render json: @user.errors, status: :unprocessable_entity
     end
   end
+
   def show_reviews
     permitted = params.permit(:id)
     @user_reviews = User.find(permitted[:id]).reviews
