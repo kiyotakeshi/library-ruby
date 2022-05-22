@@ -12,6 +12,18 @@ class UsersController < ApplicationController
     raise Errors::NotFoundError
   end
 
+  def create
+    json = params.to_json
+    # form = Form::Users::Create::UserForm.new(doc.data)
+
+    user = User.new(email: 'mike@example.com', name: 'mike', password: '1qazxsw2', role_type: 'admin', joining_date: '2022-05-16')
+
+    if user.save
+      render json: user, status: :created
+    else
+      render json: user.errors, status: :unprocessable_entity
+    end
+  end
   def show_reviews
     permitted = params.permit(:id)
     @user_reviews = User.find(permitted[:id]).reviews
