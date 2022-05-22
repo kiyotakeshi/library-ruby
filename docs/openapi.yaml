@@ -158,7 +158,7 @@ paths:
   /users/{userId}/reviews:
     get:
       tags:
-        - 'users'
+        - 'reviews'
       summary: 'あるユーザのレビュー一覧取得'
       description: 'あるユーザのレビュー一覧取得を返す'
       parameters:
@@ -185,7 +185,7 @@ paths:
   /users/{userId}/rental_histories:
     get:
       tags:
-        - 'users'
+        - 'rental_histories'
       summary: 'あるユーザのレンタル履歴'
       description: 'あるユーザのレンタル履歴を返す'
       parameters:
@@ -211,7 +211,7 @@ paths:
                       $ref: '#/components/schemas/rental_history'
     post:
       tags:
-        - 'users'
+        - 'rental_histories'
       summary: 'ユーザーのレンタル履歴の登録'
       description: 'ユーザ一をレンタル履歴を登録する'
       requestBody:
@@ -395,7 +395,7 @@ paths:
   /books/{bookId}/reviews:
     get:
       tags:
-        - 'books'
+        - 'reviews'
       summary: 'ある本につけられたレビュー一覧の取得'
       description: 'ある本につけられたレビュー一覧の取得を返す'
       parameters:
@@ -421,7 +421,7 @@ paths:
                       $ref: '#/components/schemas/review'
     post:
       tags:
-        - 'books'
+        - 'reviews'
       summary: 'ある本にレビューを登録する'
       description: 'ある本にレビューを登録'
       parameters:
@@ -564,7 +564,7 @@ paths:
   /categories/{categoryId}/books:
     get:
       tags:
-        - 'categories'
+        - 'books'
       summary: 'あるカテゴリーの本の一覧の取得'
       description: 'あるカテゴリーの本の一覧を返す'
       parameters:
@@ -682,7 +682,7 @@ paths:
   /reviews/{reviewId}/comments:
     get:
       tags:
-        - 'reviews'
+        - 'comments'
       summary: 'あるレビューに寄せられたコメントの一覧の取得'
       description: 'あるレビューに寄せられたコメントの一覧の取得を返す'
       parameters:
@@ -708,7 +708,7 @@ paths:
                       $ref: '#/components/schemas/comment'
     post:
       tags:
-        - 'reviews'
+        - 'comments'
       summary: 'あるレビューにコメントを登録する'
       description: 'あるレビューにコメントを登録'
       parameters:
