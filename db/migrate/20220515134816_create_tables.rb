@@ -56,9 +56,8 @@ class CreateTables < ActiveRecord::Migration[7.0]
     end
 
     ## comment
-    # bundle exec rails g migration CreateComments title content:text favorite_count:integer date:date edited:boolean
+    # bundle exec rails g migration CreateComments content:text favorite_count:integer date:date edited:boolean
     create_table :comments do |t|
-      t.string :title
       t.text :content
       t.integer :favorite_count
       t.date :date

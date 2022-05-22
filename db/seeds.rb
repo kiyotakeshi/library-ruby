@@ -63,14 +63,14 @@ rental_histories.each do |start_date, return_date, user_id, book_id|
 end
 
 comments = [
-  # title, content, favorite_count, date, edited, user_id, review_id
-  ['sounds good', 'I' 'm just looking for java beginner book', 0, '2022-05-21', 0, User.second.id, Review.first.id],
-  ['LGTM', 'this book has good reputation', 0, '2022-05-22', 0, User.second.id, Review.second.id],
-  ['nice sharing', 'I' 've read same book. But your insights gives me new inspiration', 0, '2022-05-21', 0, User.first.id, Review.third.id],
+  # content, favorite_count, date, edited, user_id, review_id
+  ['I' 'm just looking for java beginner book', 0, '2022-05-21', 0, User.second.id, Review.first.id],
+  ['this book has good reputation', 0, '2022-05-22', 0, User.second.id, Review.second.id],
+  ['I' 've read same book. But your insights gives me new inspiration', 0, '2022-05-21', 0, User.first.id, Review.third.id],
 ]
 
-comments.each do |title, content, favorite_count, date, edited, user_id, review_id|
-  Comment.create(title:, content:, favorite_count:, date:, edited:, user_id:, review_id:)
+comments.each do |content, favorite_count, date, edited, user_id, review_id|
+  Comment.create(content:, favorite_count:, date:, edited:, user_id:, review_id:)
 end
 
 # 10.times do

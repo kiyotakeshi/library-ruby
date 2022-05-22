@@ -79,10 +79,10 @@ join rental_histories rh on u.id = rh.user_id
 where u.id = 1;
 
 --- comment
-INSERT INTO comments (title, content, favorite_count, date, edited, created_at, updated_at, user_id, review_id) VALUES
-('sounds good', 'I''m just looking for java beginner book', 0, '2022-05-21', 0, '2022-05-21 00:36:50.000000', '2022-05-21 00:36:52.000000', 2, 1),
-('LGTM', 'this book has good reputation', 0, '2022-05-22', 0, '2022-05-21 00:38:43.000000', '2022-05-21 00:38:45.000000', 2, 2),
-('nice sharing', 'I''ve read same book. But your insights gives me new inspiration', 0, '2022-05-21', 0, '2022-05-21 00:42:32.000000', '2022-05-21 00:42:35.000000', 1, 3);
+INSERT INTO comments (content, favorite_count, date, edited, created_at, updated_at, user_id, review_id) VALUES
+('I''m just looking for java beginner book', 0, '2022-05-21', 0, '2022-05-21 00:36:50.000000', '2022-05-21 00:36:52.000000', 2, 1),
+('this book has good reputation', 0, '2022-05-22', 0, '2022-05-21 00:38:43.000000', '2022-05-21 00:38:45.000000', 2, 2),
+('I''ve read same book. But your insights gives me new inspiration', 0, '2022-05-21', 0, '2022-05-21 00:42:32.000000', '2022-05-21 00:42:35.000000', 1, 3);
 
 select * from comments c
 join reviews r on c.review_id = r.id

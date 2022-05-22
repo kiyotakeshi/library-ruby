@@ -21,7 +21,6 @@ RSpec.describe "Reviews", type: :request do
       expect(comment.key?("id")).to be true
       expect(comment.key?("user_name")).to be true
       expect(comment.key?("review_id")).to be true
-      expect(comment.key?("title")).to be true
       expect(comment.key?("content")).to be true
       expect(comment.key?("favorite_count")).to be true
       expect(comment.key?("date")).to be true
