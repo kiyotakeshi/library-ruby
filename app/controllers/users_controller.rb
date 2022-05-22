@@ -13,16 +13,10 @@ class UsersController < ApplicationController
   end
 
   def create
-    permitted_params = params.require(:user).permit(:name, :email, :role_type, :joining_date)
-    # form = Form::Users::Create::UserForm.new(doc.data)
+    permitted_params = params.require(:user)
+                             .permit(:name, :email, :role_type, :joining_date)
 
     @user = User.new(permitted_params)
-
-    # if form.invalid?
-    #   return render json: json_string, status: :unprocessable_entity
-    # end
-    #
-    # render template: "users/create", status: :created
 
     if @user.save
       render template: "users/create", status: :created
