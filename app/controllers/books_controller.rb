@@ -14,4 +14,15 @@ class BooksController < ApplicationController
     permitted = params.permit(:id)
     @book_reviews = Book.find(permitted[:id]).reviews
   end
+
+  def create_review
+    permitted_params = params.permit(:book_id, :user_id, :title, :content, :rating, :date)
+    @review = Review.new(permitted_params)
+
+    if @review.save
+      render template: "books/create_review", status: :created
+    else
+      render json: @review.errors, status: :unprocessable_entity
+    end
+  end
 end

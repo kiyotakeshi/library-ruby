@@ -437,12 +437,16 @@ paths:
             schema:
               type: object
               required:
+                - book_id
                 - user_id
                 - title
                 - content
                 - rating
                 - date
               properties:
+                book_id:
+                  type: integer
+                  example: 1
                 user_id:
                   type: integer
                   example: 1
