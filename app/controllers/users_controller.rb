@@ -34,4 +34,16 @@ class UsersController < ApplicationController
     permitted = params.permit(:id)
     @user_rental_histories = User.find(permitted[:id]).rental_histories
   end
+
+  def create_rental_histories
+    permitted_params = params.permit(:user_id, :book_id, :start_date, :return_date)
+
+    @rental_history = RentalHistory.new(permitted_params)
+
+    if @rental_history.save
+      render template: "users/create_rental_histories", status: :created
+    else
+      render json: @rental_history.errors, status: :unprocessable_entity
+    end
+  end
 end
