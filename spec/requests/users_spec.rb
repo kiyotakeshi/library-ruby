@@ -94,6 +94,23 @@ RSpec.describe "Users", type: :request do
     end
   end
 
+  describe "POST /users" do
+    let(:params) { build(:user_json) }
+
+    it "create user" do
+      post "/users", params: params, as: :json
+
+      expect(response).to have_http_status(:created)
+      user = JSON.parse(response.body)["users"]
+
+      expect(user.key?("id")).to be true
+      expect(user.key?("name")).to be true
+      expect(user.key?("email")).to be true
+      expect(user.key?("role_type")).to be true
+      expect(user.key?("joining_date")).to be true
+    end
+  end
+
   describe "POST /users/:id/rental_histories" do
     let(:user) { create(:user) }
     let(:book) { create(:book, title: "ruby professional") }
