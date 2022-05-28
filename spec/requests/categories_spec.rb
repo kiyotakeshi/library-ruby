@@ -45,4 +45,19 @@ RSpec.describe "Categories", type: :request do
       expect(book.key?("categories")).to be true
     end
   end
+
+  describe "POST /categories" do
+    let(:params) { build(:category_json, name: "ruby on rails") }
+
+    it "create category" do
+      post "/categories", params: params, as: :json
+
+      expect(response).to have_http_status(:created)
+      category = JSON.parse(response.body)["categories"]
+
+      expect(category.key?("id")).to be true
+      expect(category.key?("name")).to be true
+      expect(category["name"]).to eq("ruby on rails")
+    end
+  end
 end
