@@ -5,7 +5,7 @@ FactoryBot.define do
 
   factory :category_json, class: Hash do |_h|
     name { "ruby" }
-  end
 
-  initialize_with { attributes }
+    initialize_with { attributes }
+  end
 end

@@ -8,4 +8,13 @@ FactoryBot.define do
     review
     user
   end
+
+  factory :review_comment_json, class: Hash do |_h|
+    user_id { 1 }
+    review_id { 1 }
+    content { "nice sharing!!" }
+    date { "2022-05-28" }
+
+    initialize_with { attributes }
+  end
 end
