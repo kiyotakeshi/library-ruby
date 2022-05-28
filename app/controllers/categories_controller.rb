@@ -20,4 +20,10 @@ class CategoriesController < ApplicationController
     end
 
   end
+
+  def destroy
+    permitted = params.permit(:id)
+    found = Category.find(permitted[:id])
+    found.destroy!
+  end
 end

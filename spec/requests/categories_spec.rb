@@ -60,4 +60,15 @@ RSpec.describe "Categories", type: :request do
       expect(category["name"]).to eq("ruby on rails")
     end
   end
+
+  describe "DELETE /categories/:id" do
+    let(:category) { create(:category) }
+
+    it "delete category" do
+      delete "/categories/#{category.id}"
+
+      expect(response).to have_http_status(:no_content)
+      expect { Category.find(category.id) }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+  end
 end

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get "/books/:id/reviews", to: "books#show_reviews"
   post "/books/:id/reviews", to: "books#create_review"
 
-  resources :categories, only: %i[index create]
+  resources :categories, only: %i[index create destroy]
   get "/categories/:id/books", to: "categories#show_books"
 
   get "/reviews/:id/comments", to: "reviews#show_comments"
