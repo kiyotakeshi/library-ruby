@@ -93,4 +93,27 @@ RSpec.describe "Users", type: :request do
       expect(second_rental_history["book_title"]).to eq("ruby professional")
     end
   end
+
+  describe "POST /users/:id/rental_histories" do
+    let(:user) { create(:user) }
+    let(:book) { create(:book, title: "ruby professional") }
+    let(:params) { build(:rental_history_json, user_id: user.id, book_id: book.id) }
+
+    it "create rental history" do
+      post "/users/#{user.id}/rental_histories", params: params, as: :json
+
+      expect(response).to have_http_status(:created)
+      rental_history = JSON.parse(response.body)["rental_histories"]
+
+      expect(rental_history.key?("id")).to be true
+      expect(rental_history.key?("user_id")).to be true
+      expect(rental_history.key?("book_id")).to be true
+      expect(rental_history.key?("start_date")).to be true
+      expect(rental_history.key?("return_date")).to be true
+      expect(rental_history.key?("book_title")).to be true
+      expect(rental_history["book_title"]).to eq("ruby professional")
+    end
+
+    # TODO: 異常系のテスト
+  end
 end
