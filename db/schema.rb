@@ -12,11 +12,11 @@
 
 ActiveRecord::Schema[7.0].define(version: 2022_05_15_141037) do
   create_table "books", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "title"
-    t.string "description"
-    t.date "published"
-    t.boolean "rent"
-    t.date "return_date"
+    t.string "title", null: false
+    t.string "description", null: false
+    t.date "published", null: false
+    t.boolean "rent", default: false, comment: "借りられているか"
+    t.date "return_date", comment: "返却日"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -31,16 +31,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_15_141037) do
   end
 
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.text "content"
+    t.text "content", null: false
     t.integer "favorite_count"
-    t.date "date"
-    t.boolean "edited"
+    t.date "date", null: false
+    t.boolean "edited", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
@@ -50,8 +50,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_15_141037) do
   end
 
   create_table "rental_histories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.date "start_date"
-    t.date "return_date"
+    t.date "start_date", null: false
+    t.date "return_date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
@@ -61,10 +61,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_15_141037) do
   end
 
   create_table "reviews", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "title"
-    t.string "content"
-    t.integer "rating"
-    t.date "date"
+    t.string "title", null: false
+    t.string "content", null: false
+    t.integer "rating", null: false
+    t.date "date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
@@ -74,11 +74,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_15_141037) do
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "email"
-    t.string "name"
+    t.string "email", null: false
+    t.string "name", null: false
     t.string "password"
-    t.string "role_type"
-    t.date "joining_date"
+    t.column "role_type", "enum('admin','user')", null: false
+    t.date "joining_date", null: false, comment: "チーム加入日"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -10,11 +10,11 @@ class CreateTables < ActiveRecord::Migration[7.0]
     ## user
     # bundle exec rails g migration CreateUsers email name password role_type joining_date:date
     create_table :users do |t|
-      t.string :email
-      t.string :name
+      t.string :email, null: false
+      t.string :name, null: false
       t.string :password
-      t.string :role_type
-      t.date :joining_date
+      t.column :role_type, "enum('admin', 'user')", null: false
+      t.date :joining_date, comment: 'チーム加入日', null: false
 
       t.timestamps
     end
@@ -23,10 +23,10 @@ class CreateTables < ActiveRecord::Migration[7.0]
     # bundle exec rails g migration CreateReviews title content rating:integer date:date
     # bundle exec rails g model Reviews title content rating:integer date:date
     create_table :reviews do |t|
-      t.string :title
-      t.string :content
-      t.integer :rating
-      t.date :date
+      t.string :title, null: false
+      t.string :content, null: false
+      t.integer :rating, null: false
+      t.date :date, null: false
 
       t.timestamps
     end
@@ -36,11 +36,11 @@ class CreateTables < ActiveRecord::Migration[7.0]
     # bundle exec rails g model Books title description published:date rent:boolean return_date:date
     # bundle exec rails g controller Books
     create_table :books do |t|
-      t.string :title
-      t.string :description
-      t.date :published
-      t.boolean :rent
-      t.date :return_date
+      t.string :title, null: false
+      t.string :description, null: false
+      t.date :published, null: false
+      t.boolean :rent, default: false, comment: '借りられているか'
+      t.date :return_date, comment: '返却日'
 
       t.timestamps
     end
@@ -50,7 +50,7 @@ class CreateTables < ActiveRecord::Migration[7.0]
     # bundle exec rails g model Categories name
     # bundle exec rails g controller Categories
     create_table :categories do |t|
-      t.string :name
+      t.string :name, null: false
 
       t.timestamps
     end
@@ -58,10 +58,10 @@ class CreateTables < ActiveRecord::Migration[7.0]
     ## comment
     # bundle exec rails g migration CreateComments content:text favorite_count:integer date:date edited:boolean
     create_table :comments do |t|
-      t.text :content
+      t.text :content, null: false
       t.integer :favorite_count
-      t.date :date
-      t.boolean :edited
+      t.date :date, null: false
+      t.boolean :edited, default:false
 
       t.timestamps
     end
@@ -69,8 +69,8 @@ class CreateTables < ActiveRecord::Migration[7.0]
     ## rental_history
     # bundle exec rails g migration CreateRentalHistories start_date:date return_date:date
     create_table :rental_histories do |t|
-      t.date :start_date
-      t.date :return_date
+      t.date :start_date, null: false
+      t.date :return_date, null: false
 
       t.timestamps
     end
