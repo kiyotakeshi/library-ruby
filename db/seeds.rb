@@ -11,14 +11,14 @@ users.each do |email, name, password, role_type, joining_date|
 end
 
 books = [
-  # title, description, published, rent, return_date
+  # title, description, published_date, rent, return_date
   ['java beginner', 'for java beginner', '2022-05-16', false, nil],
   ['ruby beginner', 'for ruby beginner', '2022-05-20', false, nil],
   ['ruby professional', 'for ruby beginner', '2022-05-20', true, '2022-06-09'],
 ]
 
-books.each do |title, description, published, rent, return_date|
-  Book.create(title:, description:, published:, rent:, return_date:)
+books.each do |title, description, published_date, rent, return_date|
+  Book.create(title:, description:, published_date:, rent:, return_date:)
 end
 
 reviews = [

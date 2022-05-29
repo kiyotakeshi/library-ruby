@@ -8,7 +8,7 @@ create table if not exists books
     primary key,
     title       varchar(255) null,
     description varchar(255) null,
-    published   date         null,
+    published_date   date         null,
     rent        tinyint(1)   null,
     return_date date         null,
     created_at  datetime(6)  not null,

@@ -32,13 +32,13 @@ class CreateTables < ActiveRecord::Migration[7.0]
     end
 
     ## book
-    # bundle exec rails g migration CreateBooks title description published:date rent:boolean return_date:date
-    # bundle exec rails g model Books title description published:date rent:boolean return_date:date
+    # bundle exec rails g migration CreateBooks title description published_date:date rent:boolean return_date:date
+    # bundle exec rails g model Books title description published_date:date rent:boolean return_date:date
     # bundle exec rails g controller Books
     create_table :books do |t|
       t.string :title, null: false
       t.string :description, null: false
-      t.date :published, null: false
+      t.date :published_date, null: false, comment: '出版日'
       t.boolean :rent, default: false, comment: '借りられているか'
       t.date :return_date, comment: '返却日'
 

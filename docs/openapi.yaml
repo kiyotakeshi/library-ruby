@@ -286,7 +286,7 @@ paths:
               required:
                 - title
                 - description
-                - published
+                - published_date
                 - rent
                 - return_date
                 - categories
@@ -297,7 +297,7 @@ paths:
                 description:
                   type: string
                   example: 'this book for the programer that want to be java programmer'
-                published:
+                published_date:
                   type: string
                   example: '2022-04-31'
                 rent:
@@ -874,7 +874,7 @@ components:
         - id
         - title
         - description
-        - published
+        - published_date
         - rent
         - return_date
         - categories
@@ -888,7 +888,7 @@ components:
         description:
           type: string
           example: 'this book for the programer that want to be java programmer'
-        published:
+        published_date:
           type: string
           example: '2022-04-31'
         rent:

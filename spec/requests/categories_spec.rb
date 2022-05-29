@@ -39,7 +39,7 @@ RSpec.describe "Categories", type: :request do
       expect(book.key?("id")).to be true
       expect(book.key?("title")).to be true
       expect(book.key?("description")).to be true
-      expect(book.key?("published")).to be true
+      expect(book.key?("published_date")).to be true
       expect(book.key?("rent")).to be true
       expect(book.key?("return_date")).to be true
       expect(book.key?("categories")).to be true

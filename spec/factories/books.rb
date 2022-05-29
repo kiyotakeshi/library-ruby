@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :book do
     title { "MyString" }
     description { "MyString" }
-    published { "2022-05-21" }
+    published_date { "2022-05-21" }
     rent { false }
     return_date { "2022-05-21" }
   end
@@ -10,7 +10,7 @@ FactoryBot.define do
   factory :book_with_categories_json, class: Hash do |_h|
     title { "ruby beginner" }
     description { "ruby 3.0" }
-    published { "2022-05-21" }
+    published_date { "2022-05-21" }
     rent { false }
     return_date {}
     categories do

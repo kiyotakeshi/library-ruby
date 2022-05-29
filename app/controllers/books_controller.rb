@@ -11,7 +11,7 @@ class BooksController < ApplicationController
   end
 
   def create
-    book_permitted_params = params.permit(:title, :description, :published, :rent, :return_date)
+    book_permitted_params = params.permit(:title, :description, :published_date, :rent, :return_date)
     category_permitted_params = params.permit(categories: [:category_id])
 
     @book = Book.new(book_permitted_params)

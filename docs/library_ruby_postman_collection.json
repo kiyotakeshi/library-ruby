@@ -169,7 +169,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"java professional\",\n    \"description\": \"this book for the programer that want to be java programmer\",\n    \"published\": \"2022-04-31\",\n    \"rent\": true,\n    \"return_date\": \"2022-05-20\",\n    \"categories\": [\n        {\n            \"category_id\": 1\n        },\n        {\n            \"category_id\": 2\n        }\n    ]\n}",
+							"raw": "{\n    \"title\": \"java professional\",\n    \"description\": \"this book for the programer that want to be java programmer\",\n    \"published_date\": \"2022-04-29\",\n    \"rent\": true,\n    \"return_date\": \"2022-05-20\",\n    \"categories\": [\n        {\n            \"category_id\": 1\n        },\n        {\n            \"category_id\": 2\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
