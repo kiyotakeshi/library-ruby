@@ -11,7 +11,10 @@ class CategoriesController < ApplicationController
   def create
     permitted_params = params.permit(:name)
 
-    @category = Category.new(permitted_params)
+    form = Form::CreateCategoryForm.new(permitted_params)
+    return render json: form.errors, status: :unprocessable_entity unless form.valid?
+
+    @category = form.to_model
 
     if @category.save
       render template: "categories/create", status: :created
