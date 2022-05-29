@@ -12,9 +12,13 @@ class BooksController < ApplicationController
 
   def create
     book_permitted_params = params.permit(:title, :description, :published_date, :rent, :return_date)
+    book_form = Form::CreateBookForm.new(book_permitted_params)
+    return render json: book_form.errors, status: :unprocessable_entity unless book_form.valid?
+
     category_permitted_params = params.permit(categories: [:category_id])
 
     @book = Book.new(book_permitted_params)
+
     if @book.save
       @book.books_categories.create(category_permitted_params.to_hash["categories"])
       render template: "books/create", status: :created

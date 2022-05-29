@@ -12,7 +12,9 @@ FactoryBot.define do
     description { "ruby 3.0" }
     published_date { "2022-05-21" }
     rent { false }
+    # rubocop:disable Lint/EmptyBlock
     return_date {}
+    # rubocop:enable Lint/EmptyBlock
     categories do
       [
         {
