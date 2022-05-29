@@ -35,6 +35,9 @@ class BooksController < ApplicationController
   def create_review
     permitted_params = params.permit(:book_id, :user_id, :title, :content, :rating, :date)
 
+    render json: "not found book", status: :not_found unless Book.exists?(permitted_params[:book_id])
+    render json: "not found user", status: :not_found unless User.exists?(permitted_params[:user_id])
+
     form = Form::CreateReviewForm.new(permitted_params)
     return render json: form.errors, status: :unprocessable_entity unless form.valid?
 

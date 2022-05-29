@@ -27,7 +27,10 @@ class ReviewsController < ApplicationController
     render json: "not found review", status: :not_found unless Review.exists?(permitted_params[:review_id])
     render json: "not found user", status: :not_found unless User.exists?(permitted_params[:user_id])
 
-    @comment = Comment.new(permitted_params)
+    form = Form::CreateCommentForm.new(permitted_params)
+    return render json: form.errors, status: :unprocessable_entity unless form.valid?
+
+    @comment = form.to_model
 
     if @comment.save
       render template: "reviews/create_comment", status: :created

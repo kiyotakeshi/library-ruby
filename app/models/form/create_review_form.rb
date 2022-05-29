@@ -12,8 +12,9 @@ module Form
 
     validates_with Validators::DateValidator, fields: [:date]
 
-    validates :book_id, numericality: { only_int: true, greater_than_or_equal_to: 1 }, allow_blank: false
-    validates :user_id, numericality: { only_int: true, greater_than_or_equal_to: 1 }, allow_blank: false
+    # form 作成前に book_id, user_id でDBにレコードが存在することを確認済みのため validation は不要
+    # validates :book_id, numericality: { only_int: true, greater_than_or_equal_to: 1 }, allow_blank: false
+    # validates :user_id, numericality: { only_int: true, greater_than_or_equal_to: 1 }, allow_blank: false
     validates :title, presence: true, length: { maximum: TITLE_LENGTH_MAX }, allow_blank: false
     validates :content, presence: true, length: { maximum: CONTENT_LENGTH_MAX }, allow_blank: false
     validates :rating, presence: true,
