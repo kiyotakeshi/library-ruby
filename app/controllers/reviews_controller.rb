@@ -7,9 +7,13 @@ class ReviewsController < ApplicationController
 
   def update
     permitted_params = params.permit(:title, :content, :rating, :date)
+
+    form = Form::UpdateReviewForm.new(permitted_params)
+    return render json: form.errors, status: :unprocessable_entity unless form.valid?
+
     @review = Review.find(params[:id])
 
-    if @review.update(permitted_params)
+    if @review.update(form.to_hash)
       render template: "reviews/update", status: :ok
     else
       render json: @review.errors, status: :unprocessable_entity
