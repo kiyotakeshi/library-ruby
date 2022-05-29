@@ -14,9 +14,10 @@ Rails.application.routes.draw do
   resources :categories, only: %i[index create destroy]
   get "/categories/:id/books", to: "categories#show_books"
 
+  resources :reviews, only: %i[destroy]
+  put "/reviews/:id", to: "reviews#update"
+
   get "/reviews/:id/comments", to: "reviews#show_comments"
   post "/reviews/:id/comments", to: "reviews#create_comments"
-  resources :reviews, only: %i[destroy]
-
   resources :comments, only: %i[destroy]
 end

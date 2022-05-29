@@ -3,6 +3,47 @@
 require "rails_helper"
 
 RSpec.describe "Reviews", type: :request do
+  describe "PUT /review/:id" do
+    let(:review) { create(:review) }
+    let(:params) do
+      build(:review_update_json,
+            title: "update", content: "content update", rating: 4, date: "2022-05-29")
+    end
+
+    it "update review" do
+      put "/reviews/#{review.id}", params: params, as: :json
+
+      expect(response).to have_http_status(:ok)
+      review = JSON.parse(response.body)["reviews"]
+
+      expect(review.key?("id")).to be true
+      expect(review.key?("title")).to be true
+      expect(review.key?("content")).to be true
+      expect(review.key?("rating")).to be true
+      expect(review.key?("date")).to be true
+      expect(review["title"]).to eq("update")
+      expect(review["content"]).to eq("content update")
+      expect(review["rating"]).to eq(4)
+      expect(review["date"]).to eq("2022-05-29")
+    end
+  end
+
+  describe "DELETE /reviews/:id" do
+    let(:review) { create(:review) }
+
+    it "delete review and relationships are not deleted" do
+      create(:comment, id: 10, review:)
+
+      delete "/reviews/#{review.id}"
+
+      expect(response).to have_http_status(:no_content)
+      expect { Review.find(review.id) }.to raise_error(ActiveRecord::RecordNotFound)
+      # 関連は削除されていないこと
+      expect(Comment.exists?(review_id: review.id)).to be true
+      expect(Comment.where(review: 1).first.id).to eq(10)
+    end
+  end
+
   describe "GET /reviews/:id/comments" do
 
     let(:review) { create(:review) }
@@ -49,22 +90,6 @@ RSpec.describe "Reviews", type: :request do
       expect(comment.key?("date")).to be true
       expect(comment.key?("edited")).to be true
       expect(comment["user_name"]).to eq("kendrick")
-    end
-  end
-
-  describe "DELETE /reviews/:id" do
-    let(:review) { create(:review) }
-
-    it "delete review and relationships are not deleted" do
-      create(:comment, id: 10, review:)
-
-      delete "/reviews/#{review.id}"
-
-      expect(response).to have_http_status(:no_content)
-      expect { Review.find(review.id) }.to raise_error(ActiveRecord::RecordNotFound)
-      # 関連は削除されていないこと
-      expect(Comment.exists?(review_id: review.id)).to be true
-      expect(Comment.where(review: 1).first.id).to eq(10)
     end
   end
 end
