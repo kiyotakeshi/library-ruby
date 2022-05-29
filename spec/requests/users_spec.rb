@@ -132,5 +132,29 @@ RSpec.describe "Users", type: :request do
     end
 
     # TODO: 異常系のテスト
+    # https://github.com/kiyotakeshi/library-ruby/issues/13
+  end
+
+  describe "PUT /users/:id" do
+    let(:user) { create(:user) }
+    let(:params) do
+      build(:user_json, name: "update", email: "update@example.com", role_type: "user")
+    end
+
+    it "update user" do
+      put "/users/#{user.id}", params: params, as: :json
+
+      expect(response).to have_http_status(:ok)
+      user = JSON.parse(response.body)["users"]
+
+      expect(user.key?("id")).to be true
+      expect(user.key?("name")).to be true
+      expect(user.key?("email")).to be true
+      expect(user.key?("role_type")).to be true
+      expect(user.key?("joining_date")).to be true
+      expect(user["name"]).to eq("update")
+      expect(user["email"]).to eq("update@example.com")
+      expect(user["role_type"]).to eq("user")
+    end
   end
 end
