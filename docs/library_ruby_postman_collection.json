@@ -46,40 +46,55 @@
 					"response": []
 				},
 				{
-					"name": "user reviews",
+					"name": "update user",
 					"request": {
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 1,\n  \"name\": \"update\",\n  \"email\": \"mike@example.com\",\n  \"role_type\": \"admin\",\n  \"joining_date\": \"2022-05-15\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "localhost:3000/users/2/reviews",
+							"raw": "localhost:3000/users/1",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"users",
-								"2",
-								"reviews"
+								"1"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "user rental histories",
+					"name": "new user",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"mike\",\n  \"email\": \"mike@example.com\",\n  \"role_type\": \"admin\",\n  \"joining_date\": \"2022-05-01\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "localhost:3000/users/1/rental_histories",
+							"raw": "localhost:3000/users",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"users",
-								"1",
-								"rental_histories"
+								"users"
 							]
 						}
 					},
@@ -128,20 +143,66 @@
 					"response": []
 				},
 				{
-					"name": "book reviews",
+					"name": "category books",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/books/1/reviews",
+							"raw": "localhost:3000/categories/1/books",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"categories",
+								"1",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "new book",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"java professional\",\n    \"description\": \"this book for the programer that want to be java programmer\",\n    \"published\": \"2022-04-31\",\n    \"rent\": true,\n    \"return_date\": \"2022-05-20\",\n    \"categories\": [\n        {\n            \"category_id\": 1\n        },\n        {\n            \"category_id\": 2\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/books",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete book and relationships",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/books/2",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"books",
-								"1",
-								"reviews"
+								"2"
 							]
 						}
 					},
@@ -171,20 +232,46 @@
 					"response": []
 				},
 				{
-					"name": "category books",
+					"name": "delete category",
 					"request": {
-						"method": "GET",
+						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/categories/1/books",
+							"raw": "localhost:3000/categories/4",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"categories",
-								"1",
-								"books"
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "new category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"ruby on rails\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/categories",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"categories"
 							]
 						}
 					},
@@ -194,6 +281,127 @@
 		},
 		{
 			"name": "reviews",
+			"item": [
+				{
+					"name": "user reviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/users/2/reviews",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"2",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "book reviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/books/1/reviews",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"books",
+								"1",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "new book review",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_id\": 1,\n  \"book_id\": 1,\n  \"title\": \"review title\",\n  \"content\": \"this book gives me beneficial information. Especially what and how to use OOP\\n\",\n  \"rating\": 4,\n  \"date\": \"2022-04-15\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/books/1/reviews",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"books",
+								"1",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete review",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/reviews/3",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"reviews",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update review",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"update\",\n  \"content\": \"update content\",\n  \"rating\": 3,\n  \"date\": \"2022-05-29\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/reviews/3",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"reviews",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comments",
 			"item": [
 				{
 					"name": "review comments",
@@ -210,6 +418,136 @@
 								"reviews",
 								"1",
 								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "new review comment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_id\": 1,\n  \"review_id\": 1,\n  \"content\": \"I'm just looking for OOP learning book. I'll rent next!\\n\",\n  \"date\": \"2022-04-17\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/reviews/1/comments",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"reviews",
+								"1",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete comment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/comments/4",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"comments",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update comment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"content\": \"update content\",\n  \"date\": \"2022-05-29\",\n  \"edited\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/comments/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"comments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "rental_histories",
+			"item": [
+				{
+					"name": "user rental histories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/users/1/rental_histories",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"1",
+								"rental_histories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "new user rental histories",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_id\": 1,\n  \"book_id\": 2,\n  \"start_date\": \"2022-05-28\",\n  \"return_date\": \"2022-06-12\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users/1/rental_histories",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"1",
+								"rental_histories"
 							]
 						}
 					},
