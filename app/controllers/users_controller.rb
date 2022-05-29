@@ -46,4 +46,15 @@ class UsersController < ApplicationController
       render json: @rental_history.errors, status: :unprocessable_entity
     end
   end
+
+  def update
+    permitted_params = params.permit(:name, :email, :role_type, :joining_date)
+    @user = User.find(params[:id])
+
+    if @user.update(permitted_params)
+      render template: "users/update", status: :ok
+    else
+      render json: @user.errors, status: :unprocessable_entity
+    end
+  end
 end

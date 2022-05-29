@@ -116,15 +116,11 @@ paths:
             schema:
               type: object
               required:
-                - id
                 - name
                 - email
                 - role_type
                 - joining_date
               properties:
-                id:
-                  type: integer
-                  example: 1
                 name:
                   type: string
                   example: 'mike'
