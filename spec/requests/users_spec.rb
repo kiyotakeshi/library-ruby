@@ -162,24 +162,41 @@ RSpec.describe "Users", type: :request do
 
   describe "PUT /users/:id" do
     let(:user) { create(:user) }
-    let(:params) do
-      build(:user_json, name: "update", email: "update@example.com", role_type: "user")
+
+    context "ok" do
+      let(:params) do
+        build(:user_json, name: "update", email: "update@example.com", role_type: "user")
+      end
+
+      it "update user" do
+        put "/users/#{user.id}", params: params, as: :json
+
+        expect(response).to have_http_status(:ok)
+        user = JSON.parse(response.body)["users"]
+
+        expect(user.key?("id")).to be true
+        expect(user.key?("name")).to be true
+        expect(user.key?("email")).to be true
+        expect(user.key?("role_type")).to be true
+        expect(user.key?("joining_date")).to be true
+        expect(user["name"]).to eq("update")
+        expect(user["email"]).to eq("update@example.com")
+        expect(user["role_type"]).to eq("user")
+      end
     end
 
-    it "update user" do
-      put "/users/#{user.id}", params: params, as: :json
+    context "unprocessable_entity" do
+      let(:params) do
+        build(:user_json, name: "update", email: "update&example.com")
+      end
 
-      expect(response).to have_http_status(:ok)
-      user = JSON.parse(response.body)["users"]
+      it "validation error" do
+        put "/users/#{user.id}", params: params, as: :json
 
-      expect(user.key?("id")).to be true
-      expect(user.key?("name")).to be true
-      expect(user.key?("email")).to be true
-      expect(user.key?("role_type")).to be true
-      expect(user.key?("joining_date")).to be true
-      expect(user["name"]).to eq("update")
-      expect(user["email"]).to eq("update@example.com")
-      expect(user["role_type"]).to eq("user")
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(JSON.parse(response.body)["email"][0]).to eq("is invalid")
+      end
     end
+
   end
 end

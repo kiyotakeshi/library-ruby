@@ -5,26 +5,40 @@ require "rails_helper"
 RSpec.describe "Reviews", type: :request do
   describe "PUT /reviews/:id" do
     let(:review) { create(:review) }
-    let(:params) do
-      build(:review_update_json,
-            title: "update", content: "content update", rating: 4, date: "2022-05-29")
+
+    context "ok" do
+      let(:params) do
+        build(:review_update_json,
+              title: "update", content: "content update", rating: 4, date: "2022-05-29")
+      end
+
+      it "update review" do
+        put "/reviews/#{review.id}", params: params, as: :json
+
+        expect(response).to have_http_status(:ok)
+        review = JSON.parse(response.body)["reviews"]
+
+        expect(review.key?("id")).to be true
+        expect(review.key?("title")).to be true
+        expect(review.key?("content")).to be true
+        expect(review.key?("rating")).to be true
+        expect(review.key?("date")).to be true
+        expect(review["title"]).to eq("update")
+        expect(review["content"]).to eq("content update")
+        expect(review["rating"]).to eq(4)
+        expect(review["date"]).to eq("2022-05-29")
+      end
     end
 
-    it "update review" do
-      put "/reviews/#{review.id}", params: params, as: :json
+    context "unprocessable_entity" do
+      let(:params) { build(:review_update_json, title: "update", rating: 0) }
 
-      expect(response).to have_http_status(:ok)
-      review = JSON.parse(response.body)["reviews"]
+      it "validation error" do
+        put "/reviews/#{review.id}", params: params, as: :json
 
-      expect(review.key?("id")).to be true
-      expect(review.key?("title")).to be true
-      expect(review.key?("content")).to be true
-      expect(review.key?("rating")).to be true
-      expect(review.key?("date")).to be true
-      expect(review["title"]).to eq("update")
-      expect(review["content"]).to eq("content update")
-      expect(review["rating"]).to eq(4)
-      expect(review["date"]).to eq("2022-05-29")
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(JSON.parse(response.body)["rating"][0]).to eq("must be greater than or equal to 1")
+      end
     end
   end
 

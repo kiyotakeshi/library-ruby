@@ -16,26 +16,42 @@ RSpec.describe "Comments", type: :request do
 
   describe "PUT /comments/:id" do
     let(:comment) { create(:comment) }
-    let(:params) do
-      build(:comment_update_json, content: "update", date: "2022-05-29")
+
+    context "ok" do
+      let(:params) do
+        build(:comment_update_json, content: "update", date: "2022-05-29")
+      end
+
+      it "update comment" do
+        put "/comments/#{comment.id}", params: params, as: :json
+
+        expect(response).to have_http_status(:ok)
+        comment = JSON.parse(response.body)["comments"]
+
+        expect(comment.key?("id")).to be true
+        expect(comment.key?("user_name")).to be true
+        expect(comment.key?("review_id")).to be true
+        expect(comment.key?("content")).to be true
+        expect(comment.key?("favorite_count")).to be true
+        expect(comment.key?("date")).to be true
+        expect(comment.key?("edited")).to be true
+        expect(comment["content"]).to eq("update")
+        expect(comment["date"]).to eq("2022-05-29")
+        expect(comment["edited"]).to eq(true)
+      end
     end
 
-    it "update comment" do
-      put "/comments/#{comment.id}", params: params, as: :json
+    context "unprocessable_entity" do
+      let(:params) do
+        build(:comment_update_json, content: "update", date: "2022-05-29", edited: "false")
+      end
 
-      expect(response).to have_http_status(:ok)
-      comment = JSON.parse(response.body)["comments"]
+      it "validation error" do
+        put "/comments/#{comment.id}", params: params, as: :json
 
-      expect(comment.key?("id")).to be true
-      expect(comment.key?("user_name")).to be true
-      expect(comment.key?("review_id")).to be true
-      expect(comment.key?("content")).to be true
-      expect(comment.key?("favorite_count")).to be true
-      expect(comment.key?("date")).to be true
-      expect(comment.key?("edited")).to be true
-      expect(comment["content"]).to eq("update")
-      expect(comment["date"]).to eq("2022-05-29")
-      expect(comment["edited"]).to eq(true)
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(JSON.parse(response.body)["edited"][0]).to eq("is not included in the list")
+      end
     end
   end
 end
