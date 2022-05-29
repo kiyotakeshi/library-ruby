@@ -9,8 +9,9 @@ module Form
 
     validates_with Validators::DateValidator, fields: %i[start_date return_date]
 
-    validates :user_id, numericality: { only_int: true, greater_than_or_equal_to: 1 }, allow_blank: false
-    validates :book_id, numericality: { only_int: true, greater_than_or_equal_to: 1 }, allow_blank: false
+    # form 作成前に book_id, user_id でDBにレコードが存在することを確認済みのため validation は不要
+    # validates :user_id, numericality: { only_int: true, greater_than_or_equal_to: 1 }, allow_blank: false
+    # validates :book_id, numericality: { only_int: true, greater_than_or_equal_to: 1 }, allow_blank: false
 
     def initialize(params)
       @user_id = params[:user_id]

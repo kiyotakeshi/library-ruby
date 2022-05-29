@@ -69,41 +69,69 @@ RSpec.describe "Books", type: :request do
   describe "POST /books" do
     let(:category) { create(:category, id: 10, name: "ruby") }
     let(:book_categories) { [{ category_id: category.id }] }
-    let(:params) { build(:book_with_categories_json, categories: book_categories) }
 
-    it "create book" do
-      post "/books", params: params, as: :json
+    context "created" do
+      let(:params) { build(:book_with_categories_json, categories: book_categories) }
 
-      expect(response).to have_http_status(:created)
-      book = JSON.parse(response.body)["books"]
+      it "create book" do
+        post "/books", params: params, as: :json
 
-      expect(book.key?("id")).to be true
-      expect(book.key?("title")).to be true
-      expect(book.key?("description")).to be true
-      expect(book.key?("published_date")).to be true
-      expect(book.key?("rent")).to be true
-      expect(book.key?("return_date")).to be true
-      expect(book.key?("categories")).to be true
-      expect(book["categories"][0]["name"]).to eq("ruby")
+        expect(response).to have_http_status(:created)
+        book = JSON.parse(response.body)["books"]
+
+        expect(book.key?("id")).to be true
+        expect(book.key?("title")).to be true
+        expect(book.key?("description")).to be true
+        expect(book.key?("published_date")).to be true
+        expect(book.key?("rent")).to be true
+        expect(book.key?("return_date")).to be true
+        expect(book.key?("categories")).to be true
+        expect(book["categories"][0]["name"]).to eq("ruby")
+      end
+    end
+
+    context "unprocessable_entity" do
+      let(:params) { build(:book_with_categories_json, categories: book_categories, rent: "true") }
+
+      it "validation error" do
+        post "/books", params: params, as: :json
+        expect(response).to have_http_status(:unprocessable_entity)
+        # 文字列の "true" はエラー
+        expect(JSON.parse(response.body)["rent"][0]).to eq("is not included in the list")
+      end
     end
   end
 
   describe "POST /books/:id/reviews" do
     let(:book) { create(:book, id: 10) }
     let(:user) { create(:user, id: 5) }
-    let(:params) { build(:review_json, book_id: book.id, user_id: user.id) }
 
-    it "create book review" do
-      post "/books/:id/reviews", params: params, as: :json
+    context "created" do
+      let(:params) { build(:review_json, book_id: book.id, user_id: user.id) }
 
-      expect(response).to have_http_status(:created)
-      review = JSON.parse(response.body)["reviews"]
+      it "create book review" do
+        post "/books/:id/reviews", params: params, as: :json
 
-      expect(review.key?("id")).to be true
-      expect(review.key?("title")).to be true
-      expect(review.key?("content")).to be true
-      expect(review.key?("rating")).to be true
-      expect(review.key?("date")).to be true
+        expect(response).to have_http_status(:created)
+        review = JSON.parse(response.body)["reviews"]
+
+        expect(review.key?("id")).to be true
+        expect(review.key?("title")).to be true
+        expect(review.key?("content")).to be true
+        expect(review.key?("rating")).to be true
+        expect(review.key?("date")).to be true
+      end
+    end
+
+    context "unprocessable_entity" do
+      let(:params) { build(:review_json, book_id: book.id, user_id: user.id, rating: 6) }
+
+      it "validation error" do
+        post "/books/:id/reviews", params: params, as: :json
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(JSON.parse(response.body)["rating"][0]).to eq("must be less than or equal to 5")
+      end
     end
   end
 

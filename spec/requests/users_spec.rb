@@ -95,44 +95,69 @@ RSpec.describe "Users", type: :request do
   end
 
   describe "POST /users" do
-    let(:params) { build(:user_json) }
+    context "created" do
+      let(:params) { build(:user_json) }
 
-    it "create user" do
-      post "/users", params: params, as: :json
+      it "create user" do
+        post "/users", params: params, as: :json
 
-      expect(response).to have_http_status(:created)
-      user = JSON.parse(response.body)["users"]
+        expect(response).to have_http_status(:created)
+        user = JSON.parse(response.body)["users"]
 
-      expect(user.key?("id")).to be true
-      expect(user.key?("name")).to be true
-      expect(user.key?("email")).to be true
-      expect(user.key?("role_type")).to be true
-      expect(user.key?("joining_date")).to be true
+        expect(user.key?("id")).to be true
+        expect(user.key?("name")).to be true
+        expect(user.key?("email")).to be true
+        expect(user.key?("role_type")).to be true
+        expect(user.key?("joining_date")).to be true
+      end
+    end
+
+    context "unprocessable_entity" do
+      let(:params) { build(:user_json, name: "") }
+
+      it "validation error" do
+        post "/users", params: params, as: :json
+        expect(response).to have_http_status(:unprocessable_entity)
+        puts JSON.parse(response.body)
+        expect(JSON.parse(response.body)["name"][0]).to eq("can't be blank")
+        expect(JSON.parse(response.body)["name"][1]).to eq("is too short (minimum is 1 character)")
+      end
     end
   end
 
   describe "POST /users/:id/rental_histories" do
     let(:user) { create(:user) }
     let(:book) { create(:book, title: "ruby professional") }
-    let(:params) { build(:rental_history_json, user_id: user.id, book_id: book.id) }
 
-    it "create rental history" do
-      post "/users/#{user.id}/rental_histories", params: params, as: :json
+    context "created" do
+      let(:params) { build(:rental_history_json, user_id: user.id, book_id: book.id) }
 
-      expect(response).to have_http_status(:created)
-      rental_history = JSON.parse(response.body)["rental_histories"]
+      it "create rental history" do
+        post "/users/#{user.id}/rental_histories", params: params, as: :json
 
-      expect(rental_history.key?("id")).to be true
-      expect(rental_history.key?("user_id")).to be true
-      expect(rental_history.key?("book_id")).to be true
-      expect(rental_history.key?("start_date")).to be true
-      expect(rental_history.key?("return_date")).to be true
-      expect(rental_history.key?("book_title")).to be true
-      expect(rental_history["book_title"]).to eq("ruby professional")
+        expect(response).to have_http_status(:created)
+        rental_history = JSON.parse(response.body)["rental_histories"]
+
+        expect(rental_history.key?("id")).to be true
+        expect(rental_history.key?("user_id")).to be true
+        expect(rental_history.key?("book_id")).to be true
+        expect(rental_history.key?("start_date")).to be true
+        expect(rental_history.key?("return_date")).to be true
+        expect(rental_history.key?("book_title")).to be true
+        expect(rental_history["book_title"]).to eq("ruby professional")
+      end
     end
 
-    # TODO: 異常系のテスト
-    # https://github.com/kiyotakeshi/library-ruby/issues/13
+    context "unprocessable_entity" do
+      let(:params) { build(:rental_history_json, user_id: user.id, book_id: book.id, start_date: "2022") }
+
+      it "validation error" do
+        post "/users/#{user.id}/rental_histories", params: params, as: :json
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(JSON.parse(response.body)["start_date"][0]).to eq("is invalid data(not date format)")
+      end
+    end
   end
 
   describe "PUT /users/:id" do

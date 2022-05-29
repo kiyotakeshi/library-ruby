@@ -47,18 +47,36 @@ RSpec.describe "Categories", type: :request do
   end
 
   describe "POST /categories" do
-    let(:params) { build(:category_json, name: "ruby on rails") }
 
-    it "create category" do
-      post "/categories", params: params, as: :json
+    context "created" do
+      let(:params) { build(:category_json, name: "ruby on rails") }
 
-      expect(response).to have_http_status(:created)
-      category = JSON.parse(response.body)["categories"]
+      it "create category" do
+        post "/categories", params: params, as: :json
 
-      expect(category.key?("id")).to be true
-      expect(category.key?("name")).to be true
-      expect(category["name"]).to eq("ruby on rails")
+        expect(response).to have_http_status(:created)
+        category = JSON.parse(response.body)["categories"]
+
+        expect(category.key?("id")).to be true
+        expect(category.key?("name")).to be true
+        expect(category["name"]).to eq("ruby on rails")
+      end
     end
+
+    context "unprocessable_entity" do
+      let(:params) { build(:category_json, name: "") }
+
+      it "validation error" do
+        post "/categories", params: params, as: :json
+
+        expect(response).to have_http_status(:unprocessable_entity)
+
+        json = JSON.parse(response.body)
+        expect(json["name"][0]).to eq("can't be blank")
+        expect(json["name"][1]).to eq("is too short (minimum is 1 character)")
+      end
+    end
+
   end
 
   describe "DELETE /categories/:id" do

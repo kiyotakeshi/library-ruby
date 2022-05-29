@@ -40,6 +40,9 @@ class UsersController < ApplicationController
   def create_rental_histories
     permitted_params = params.permit(:user_id, :book_id, :start_date, :return_date)
 
+    render json: "not found user", status: :not_found unless User.exists?(permitted_params[:user_id])
+    render json: "not found book", status: :not_found unless Book.exists?(permitted_params[:book_id])
+
     form = Form::CreateRentalHistoryForm.new(permitted_params)
     return render json: form.errors, status: :unprocessable_entity unless form.valid?
 
