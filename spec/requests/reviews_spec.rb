@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "Reviews", type: :request do
-  describe "PUT /review/:id" do
+  describe "PUT /reviews/:id" do
     let(:review) { create(:review) }
     let(:params) do
       build(:review_update_json,

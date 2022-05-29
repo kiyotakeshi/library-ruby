@@ -777,16 +777,11 @@ paths:
             schema:
               type: object
               required:
-                - user_id
-                - review_id
                 - content
                 - favorite_count
                 - date
                 - edited
               properties:
-                user_id:
-                  type: integer
-                  example: 1
                 content:
                   type: string
                   example: |

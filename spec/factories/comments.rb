@@ -17,4 +17,12 @@ FactoryBot.define do
 
     initialize_with { attributes }
   end
+
+  factory :comment_update_json, class: Hash do |_h|
+    content { "update" }
+    date { "2022-05-29" }
+    edited { true }
+
+    initialize_with { attributes }
+  end
 end
