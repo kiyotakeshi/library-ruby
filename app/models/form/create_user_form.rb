@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Form
   class CreateUserForm
 
@@ -18,8 +19,6 @@ module Form
     validates :role_type, inclusion: { in: %w[admin user] }
 
     def initialize(params)
-      puts "==========1"
-      puts params[:name]
       @name = params[:name]
       @email = params[:email]
       @role_type = params[:role_type]

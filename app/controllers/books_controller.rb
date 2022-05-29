@@ -30,7 +30,11 @@ class BooksController < ApplicationController
 
   def create_review
     permitted_params = params.permit(:book_id, :user_id, :title, :content, :rating, :date)
-    @review = Review.new(permitted_params)
+
+    form = Form::CreateReviewForm.new(permitted_params)
+    return render json: form.errors, status: :unprocessable_entity unless form.valid?
+
+    @review = form.to_model
 
     if @review.save
       render template: "books/create_review", status: :created
