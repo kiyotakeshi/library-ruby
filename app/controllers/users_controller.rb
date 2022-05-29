@@ -13,10 +13,12 @@ class UsersController < ApplicationController
   end
 
   def create
-    permitted_params = params.require(:user)
-                             .permit(:name, :email, :role_type, :joining_date)
+    permitted_params = params.permit(:name, :email, :role_type, :joining_date)
 
-    @user = User.new(permitted_params)
+    form = Form::CreateUserForm.new(permitted_params)
+    return render json: form.errors, status: :unprocessable_entity unless form.valid?
+
+    @user = form.to_model
 
     if @user.save
       render template: "users/create", status: :created
@@ -49,9 +51,13 @@ class UsersController < ApplicationController
 
   def update
     permitted_params = params.permit(:name, :email, :role_type, :joining_date)
+
+    form = Form::UpdateUserForm.new(permitted_params)
+    return render json: form.errors, status: :unprocessable_entity unless form.valid?
+
     @user = User.find(params[:id])
 
-    if @user.update(permitted_params)
+    if @user.update(form.to_hash)
       render template: "users/update", status: :ok
     else
       render json: @user.errors, status: :unprocessable_entity
