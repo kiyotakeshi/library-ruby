@@ -40,7 +40,7 @@ RSpec.describe "Reviews", type: :request do
       expect { Review.find(review.id) }.to raise_error(ActiveRecord::RecordNotFound)
       # 関連は削除されていないこと
       expect(Comment.exists?(review_id: review.id)).to be true
-      expect(Comment.where(review: 1).first.id).to eq(10)
+      expect(Comment.where(review: review.id).first.id).to eq(10)
     end
   end
 
