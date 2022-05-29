@@ -38,4 +38,10 @@ class BooksController < ApplicationController
       render json: @review.errors, status: :unprocessable_entity
     end
   end
+
+  def destroy
+    permitted = params.permit(:id)
+    found = Book.find(permitted[:id])
+    found.destroy!
+  end
 end

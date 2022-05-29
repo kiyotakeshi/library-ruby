@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get "/users/:id/rental_histories", to: "users#show_rental_histories"
   post "/users/:id/rental_histories", to: "users#create_rental_histories"
 
-  resources :books, only: %i[index show create]
+  resources :books, only: %i[index show create destroy]
   get "/books/:id/reviews", to: "books#show_reviews"
   post "/books/:id/reviews", to: "books#create_review"
 

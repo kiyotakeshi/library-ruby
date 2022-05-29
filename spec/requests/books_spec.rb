@@ -106,4 +106,24 @@ RSpec.describe "Books", type: :request do
       expect(review.key?("date")).to be true
     end
   end
+
+  describe "DELETE /books/:id" do
+    let(:book) { create(:book) }
+
+    it "delete book and relationships" do
+      create(:review, book:)
+      create(:rental_history, book:)
+      create(:books_category, book:)
+
+      delete "/books/#{book.id}"
+
+      expect(response).to have_http_status(:no_content)
+      expect { Book.find(book.id) }.to raise_error(ActiveRecord::RecordNotFound)
+      # 関連も削除されていること
+      # expect { Review.where(book_id: book.id).take! }.to raise_error(ActiveRecord::RecordNotFound)
+      expect(Review.exists?(book_id: book.id)).to be false
+      expect(RentalHistory.exists?(book_id: book.id)).to be false
+      expect(BooksCategory.exists?(book_id: book.id)).to be false
+    end
+  end
 end
