@@ -15,5 +15,7 @@ Rails.application.routes.draw do
 
   get "/reviews/:id/comments", to: "reviews#show_comments"
   post "/reviews/:id/comments", to: "reviews#create_comments"
+  resources :reviews, only: %i[destroy]
+
   resources :comments, only: %i[destroy]
 end

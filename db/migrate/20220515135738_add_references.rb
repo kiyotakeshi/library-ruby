@@ -22,7 +22,8 @@ class AddReferences < ActiveRecord::Migration[7.0]
 
     ## review - comment
     # bundle exec rails g migration AddReviewRefToComments review:references
-    add_reference :comments, :review, null: false, foreign_key: true
+    # review を消しても comment を残したいので外部キー制約は貼らない
+    add_reference :comments, :review, null: false, foreign_key: false
   end
 
 end

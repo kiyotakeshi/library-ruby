@@ -85,7 +85,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_15_141037) do
 
   add_foreign_key "books_categories", "books"
   add_foreign_key "books_categories", "categories"
-  add_foreign_key "comments", "reviews"
   add_foreign_key "comments", "users"
   add_foreign_key "rental_histories", "books"
   add_foreign_key "rental_histories", "users"

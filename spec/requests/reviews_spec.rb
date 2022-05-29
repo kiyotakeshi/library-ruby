@@ -52,4 +52,19 @@ RSpec.describe "Reviews", type: :request do
     end
   end
 
+  describe "DELETE /reviews/:id" do
+    let(:review) { create(:review) }
+
+    it "delete review and relationships are not deleted" do
+      create(:comment, id: 10, review:)
+
+      delete "/reviews/#{review.id}"
+
+      expect(response).to have_http_status(:no_content)
+      expect { Review.find(review.id) }.to raise_error(ActiveRecord::RecordNotFound)
+      # 関連は削除されていないこと
+      expect(Comment.exists?(review_id: review.id)).to be true
+      expect(Comment.where(review: 1).first.id).to eq(10)
+    end
+  end
 end

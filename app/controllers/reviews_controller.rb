@@ -18,4 +18,10 @@ class ReviewsController < ApplicationController
       render json: @comment.errors, status: :unprocessable_entity
     end
   end
+
+  def destroy
+    permitted = params.permit(:id)
+    found = Review.find(permitted[:id])
+    found.destroy!
+  end
 end
