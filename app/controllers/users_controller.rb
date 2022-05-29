@@ -40,8 +40,10 @@ class UsersController < ApplicationController
   def create_rental_histories
     permitted_params = params.permit(:user_id, :book_id, :start_date, :return_date)
 
-    @rental_history = RentalHistory.new(permitted_params)
+    form = Form::CreateRentalHistoryForm.new(permitted_params)
+    return render json: form.errors, status: :unprocessable_entity unless form.valid?
 
+    @rental_history = form.to_model
     if @rental_history.save
       render template: "users/create_rental_histories", status: :created
     else
